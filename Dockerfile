@@ -1,17 +1,27 @@
-# Use official Python runtime
-FROM python:3.11-slim
+# Use official Python runtime with build tools
+FROM python:3.11
 
 WORKDIR /app
 
-# Install dependencies
+# Install system dependencies needed for ML packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project
 COPY . .
 
-# Install Node for frontend (if needed)
-RUN apt-get update && apt-get install -y nodejs npm && rm -rf /var/lib/apt/lists/*
+# Install Node for frontend
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
 
 # Build frontend
 WORKDIR /app/frontend

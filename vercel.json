@@ -1,15 +1,11 @@
 {
   "version": 2,
-  "buildCommand": "pip install -r requirements.txt && cd frontend && npm install && npm run build",
-  "env": {
-    "GROQ_API_KEY": "@groq_api_key",
-    "QDRANT_URL": "@qdrant_cloud_url",
-    "QDRANT_COLLECTION_NAME": "@qdrant_collection_name",
-    "EMBEDDING_MODEL": "BAAI/bge-small-en-v1.5"
-  },
+  "buildCommand": "cd frontend && npm install && npm run build",
   "functions": {
     "api/index.py": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "memory": 3008,
+      "runtime": "python3.11"
     }
   },
   "routes": [

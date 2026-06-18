@@ -17,10 +17,19 @@ load_dotenv()
 # Config
 CHUNKS_PATH     = Path("data/processed/chunks.jsonl")
 QDRANT_URL      = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_API_KEY  = os.getenv("QDRANT_API_KEY", None)
 COLLECTION_NAME = os.getenv("QDRANT_COLLECTION_NAME", "finsight")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-en-v1.5")
 BATCH_SIZE      = 100  # upload 100 chunks at a time
 VECTOR_SIZE     = 384  # bge-small-en-v1.5 output dimension
+
+# Initialize Qdrant client (supports both local and cloud)
+if QDRANT_API_KEY:
+    client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
+    print("Connected to Qdrant Cloud")
+else:
+    client = QdrantClient(url=QDRANT_URL)
+    print("Connected to local Qdrant")
 
 
 def load_chunks() -> list[dict]:

@@ -21,9 +21,10 @@ app = FastAPI(
 )
 
 # Allow frontend to call the API
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"]
 )
@@ -34,11 +35,11 @@ class QueryRequest(BaseModel):
 
 
 class QueryResponse(BaseModel):
-    question:      str
-    answer:        str
-    sources:       list[dict]
+    question: str
+    answer: str
+    sources: list[dict]
     sub_questions: list[str]
-    retry_count:   int
+    retry_count: int
 
 
 @app.get("/")

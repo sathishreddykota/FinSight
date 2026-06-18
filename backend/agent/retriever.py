@@ -13,7 +13,17 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-en-v1.5")
 TOP_K           = 5  # retrieve top 5 chunks per sub-question
 
 # Initialize once at module level (avoid reloading model every call)
-client   = QdrantClient(url=os.getenv("QDRANT_URL", "http://localhost:6333"))
+# Support both local and cloud Qdrant
+qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333")
+qdrant_api_key = os.getenv("QDRANT_API_KEY", None)
+
+if qdrant_api_key:
+    # Qdrant Cloud with API key
+    client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
+else:
+    # Local Qdrant
+    client = QdrantClient(url=qdrant_url)
+
 embedder = TextEmbedding(EMBEDDING_MODEL)
 
 

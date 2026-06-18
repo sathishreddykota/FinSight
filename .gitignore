@@ -1,0 +1,11 @@
+venv/
+venve/
+.env
+__pycache__/
+*.pyc
+data/raw/
+data/processed/
+sec-edgar-filings/
+frontend/.next/
+frontend/node_modules/
+.qdrant/

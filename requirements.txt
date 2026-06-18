@@ -1,7 +1,7 @@
 langgraph==1.2.5
-langchain-groq>=1.0.0
-langchain-qdrant>=0.2,<2.0
-langchain-core>=1.4.7,<2.0
+langchain-groq==0.4.0
+langchain-qdrant==1.1.0
+langchain-core==1.4.7
 qdrant-client==1.18.0
 fastembed==0.8.0
 flashrank==0.2.9

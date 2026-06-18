@@ -32,8 +32,8 @@ def download_10k_filings():
                 "10-K",
                 ticker,
                 after="2021-01-01",
-                before="2024-01-01",
-                limit=3
+                before="2026-01-01",
+                limit=5
             )
             print(f"  ✅ {company_name} done")
             time.sleep(1)
